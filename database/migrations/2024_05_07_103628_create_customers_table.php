@@ -23,7 +23,6 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('plan_id')->nullable();//->index()->constrained('plans');
 
             $table->date('register_date');
             $table->string('referal_code');
