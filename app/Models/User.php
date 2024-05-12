@@ -69,7 +69,10 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class);
     }
 
-
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     public function getActivitylogOptions(): LogOptions
     {

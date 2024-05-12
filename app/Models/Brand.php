@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
+
+    protected $fillabla = [
+        'name',
+        'logo'
+    ];
+    public function prducts()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
