@@ -19,6 +19,7 @@ class VendorResource extends JsonResource
               'user_id' => $this->user_id,
               'join_date' => $this->register_date,
               'referal_code' => $this->referal_code,
+              'user' => $this->whenLoaded('user', fn($user) => UserResource::make($user)),
               'customers' => $this->whenLoaded('customers', fn($customes) => CustomerResource::collection($customes))
         ];
     }

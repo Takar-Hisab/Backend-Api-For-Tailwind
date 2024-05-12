@@ -32,6 +32,8 @@ class VendorController extends Controller
             ->whereType('vendor')
             ->with(['vendor'])
             ->search(['name', 'email','phone'], $request->input('search'));
+
+
         return UserResource::collection($vendors)->additional(['queries' => $request->query()]);
     }
 
@@ -68,9 +70,9 @@ class VendorController extends Controller
         $customes = Customer::query()
             ->with('user')
             ->where('vendor_id', $vendorId)
+            ->whereLike(['user.name', 'user.email', 'user.phone'], request()->input('search'))
             ->sortBy()
             ->pagination();
-
         return CustomerResource::collection($customes)->additional(['queries' => request()->query()]);
     }
 
@@ -80,6 +82,7 @@ class VendorController extends Controller
     public function show(string $id)
     {
         $vendor = Vendor::query()
+            ->with('user')
             ->when(request()->input('withCustomers'), function ($query){
                 $query->with('customers');
             })->findOrFail($id);

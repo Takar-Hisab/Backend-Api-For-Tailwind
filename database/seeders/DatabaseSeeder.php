@@ -28,17 +28,31 @@ class DatabaseSeeder extends Seeder
 //                ->has(Plan::factory()->count(1)))
 //            ->create();
 //
-        User::factory(100)
-            ->has(Vendor::factory()->count(1))
-            ->has(Customer::factory()->has(Plan::factory()->count(1)))
-            ->create();
+//        User::factory(100)
+//            ->has(Vendor::factory()->count(1))
+//            ->has(Customer::factory()->has(Plan::factory()->count(1)))
+//            ->create();
 
+//        User::create([
+//            'name' => 'Admin',
+//            'email' => 'admin@admin.com',
+//            'password' => Hash::make(12345678),
+//            'phone' => "01522222242",
+//            'type' => 'admin'
+//        ]);
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
+            'name' => 'Vendor',
+            'email' => 'vendor@vendor.com',
             'password' => Hash::make(12345678),
-            'phone' => "01522222242",
-            'type' => 'admin'
+            'phone' => "01522222245",
+            'type' => 'vendor'
+        ]);
+        User::create([
+            'name' => 'Customer',
+            'email' => 'customer@customer.com',
+            'password' => Hash::make(12345678),
+            'phone' => "01522222246",
+            'type' => 'custoemr'
         ]);
 
 //        User::factory()->createMany([
