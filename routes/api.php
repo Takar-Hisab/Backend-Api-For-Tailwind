@@ -15,7 +15,6 @@ Route::middleware('auth:sanctum')->group(callback: function (){
     Route::prefix('vendor')->group(function (){
        Route::get('my-customers', [DashboardController::class, 'myCustomes']);
     });
-
 });
 
 
