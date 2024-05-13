@@ -4,7 +4,8 @@ use App\Http\Controllers\Api\Customer\AuthController;
 use App\Http\Controllers\Api\Customer\ProductController;
 use App\Http\Controllers\Api\Customer\CategoryController;
 use App\Http\Controllers\Api\Customer\BrandController;
-
+use App\Http\Controllers\Api\Customer\ServiceController;
+use App\Http\Controllers\Api\Customer\PackageController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\UserController;
@@ -37,8 +38,12 @@ Route::middleware('auth:sanctum')->group(callback: function (){
             Route::post('/login', [AuthController::class, 'login']);
             Route::post('/register', [AuthController::class, 'register']);
         });
-        Route::apiResource('products', ProductController::class);
-        Route::apiResource('categories', CategoryController::class);
-        Route::apiResource('brands', BrandController::class);
+        Route::apiResources([
+            'products'   =>     ProductController::class,
+            'categories' =>     CategoryController::class,
+            'brands'     =>     BrandController::class,
+            'services'   =>     ServiceController::class,
+            'packages'   =>     PackageController::class,
+        ]);
     });
 });

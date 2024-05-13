@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name')->unique()->index();
+            $table->string('slug')->unique()->index();
             $table->integer('position')->default(0);
             $table->timestamps();
         });

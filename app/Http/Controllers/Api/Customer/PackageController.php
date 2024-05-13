@@ -3,16 +3,25 @@
 namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Http\Resources\Customer\PackageResource;
 
 class PackageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->validate([
+            'perPage'=>'nullable|integer|max:1000'
+        ]);
+
+        $packages = Package::query()
+            ->search(['name'], $request->input('search'));
+            
+        return PackageResource::collection($packages);
     }
 
     /**

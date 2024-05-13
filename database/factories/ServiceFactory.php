@@ -22,6 +22,7 @@ class ServiceFactory extends Factory
         return [
             'store_id' => function(){return Store::inRandomOrder()->value('id');},
             'name' => $this->faker->name,
+            'price' => $this->faker->numberBetween(500, 5000),
             'position' => $this->faker->randomDigit(),
         ];
     }

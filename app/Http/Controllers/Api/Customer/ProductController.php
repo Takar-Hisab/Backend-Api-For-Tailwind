@@ -19,7 +19,7 @@ class ProductController extends Controller
         ]);
 
         $products = Product::query()
-            ->search(['title', 'sku', 'bar_code'], $request->input('search'));
+            ->search(['title', 'sku'], $request->input('search'));
             
         return ProductResource::collection($products);
     }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     use HasFactory;
+
+    public function package()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }
