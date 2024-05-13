@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Customer\AuthController;
+use App\Http\Controllers\Api\Customer\ProductController;
+use App\Http\Controllers\Api\Customer\CategoryController;
+use App\Http\Controllers\Api\Customer\BrandController;
+
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\UserController;
@@ -25,5 +30,15 @@ Route::middleware('auth:sanctum')->group(callback: function (){
             Route::post('/register', [AuthenticationController::class, 'register']);
         });
         Route::get('/my-customers', [DashboardController::class, 'myCustomes']);
+    });
+
+    Route::prefix('customer')->group(function (){
+        Route::withoutMiddleware('auth:sanctum')->group(function (){
+            Route::post('/login', [AuthController::class, 'login']);
+            Route::post('/register', [AuthController::class, 'register']);
+        });
+        Route::apiResource('products', ProductController::class);
+        Route::apiResource('categories', CategoryController::class);
+        Route::apiResource('brands', BrandController::class);
     });
 });

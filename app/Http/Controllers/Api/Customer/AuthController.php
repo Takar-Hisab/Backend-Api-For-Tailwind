@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Vendor;
+namespace App\Http\Controllers\Api\Customer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,21 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
-class AuthenticationController extends Controller
+class AuthController extends Controller
 {
-    /**
-     * @throws ValidationException
-     */
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email' => ['required', 'email:rfc,dns'],
+            'email' => ['required', 'email'],
             'password' => ['required']
         ]);
 
         
         if(Auth::attempt($data, (bool)$request->input('remember'))){
-            if($request->user()->type != 'vendor'){
+            if($request->user()->type != 'customer'){
                 $this->logout($request);
                 throw ValidationException::withMessages([
                     'email' => "Auth User Not Vaid...",
@@ -51,8 +48,4 @@ class AuthenticationController extends Controller
         $request->session()->regenerateToken();
         return response()->noContent();
     }
-
-
-    
-
 }

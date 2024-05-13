@@ -11,6 +11,7 @@ class Product extends Model
 
     protected $fillable = [
         'user_id',
+        'store_id',
         'categoory_id',
         'brand_id',
         'sku',
@@ -32,4 +33,9 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    } 
 }

@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Vendor;
 use Database\Factories\VendorFactory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,52 +18,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-//        Plan::factory(15)->create();
-
-//        User::factory(500)
-//            ->has(Vendor::factory())
-//            ->has(Customer::factory()
-//                ->has(Plan::factory()->count(1)))
-//            ->create();
-//
-//        User::factory(100)
-//            ->has(Vendor::factory()->count(1))
-//            ->has(Customer::factory()->has(Plan::factory()->count(1)))
-//            ->create();
-
-//        User::create([
-//            'name' => 'Admin',
-//            'email' => 'admin@admin.com',
-//            'password' => Hash::make(12345678),
-//            'phone' => "01522222242",
-//            'type' => 'admin'
-//        ]);
-        User::create([
-            'name' => 'Vendor',
-            'email' => 'vendor@vendor.com',
-            'password' => Hash::make(12345678),
-            'phone' => "01522222245",
-            'type' => 'vendor'
+        $this->call([
+            UserSeeder::class,
+            StoreSeeder::class,
+            ServiceSeeder::class,
+            PackageSeeder::class,
+            CategorySeeder::class,
+            BrandSeeder::class,
+            ProductSeeder::class,
         ]);
-        User::create([
-            'name' => 'Customer',
-            'email' => 'customer@customer.com',
-            'password' => Hash::make(12345678),
-            'phone' => "01522222246",
-            'type' => 'custoemr'
-        ]);
-
-//        User::factory()->createMany([
-//            'name' => 'Test User',
-//            'email' => 'test@example.com',
-//            'type' => 'vendor'
-//        ],[
-//            'name' => 'Admin',
-//            'email' => 'admin@admin.com',
-//            'password' => Hash::make(12345678),
-//            'type' => 'vendor'
-//        ]);
     }
 }

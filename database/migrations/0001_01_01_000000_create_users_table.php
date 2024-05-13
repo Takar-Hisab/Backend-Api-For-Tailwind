@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->longText('avatar')->nullable();
-            $table->enum('type', ['admin', 'vendor', 'customer'])->default('customer')->index();
+            $table->enum('type', ['admin', 'vendor', 'customer', 'user'])->default('user')->index();
             $table->rememberToken();
             $table->timestamps();
         });
