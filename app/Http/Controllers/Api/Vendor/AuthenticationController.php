@@ -15,30 +15,33 @@ class AuthenticationController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $request->authenticate();
+//        $request->authenticate();
+//        $request->session()->regenerate();
+//        return response()->noContent();
 
-        $request->session()->regenerate();
-        return response()->noContent();
+        $data = $request->validate([
+            'email' => ['required', 'email:rfc,dns'],
+            'password' => ['required']
+        ]);
 
-//        $data = $request->validate([
-//            'email' => ['required', 'email:rfc,dns'],
-//            'password' => ['required']
-//        ]);
-//        if(Auth::attempt($data, (bool)$request->input('remember'))){
-//            if($request->user()->type != 'vendor'){
-//                $this->logout($request);
-//                throw ValidationException::withMessages([
-//                    'email' => "Auth User Not Vaid...",
-//                ]);
-//            }
-////            Auth::guard('web')->login($request->user());
-//            session()->regenerate((bool)$request->input('remember'));
-//            return response()->noContent();
-//        }
-//
-//        throw ValidationException::withMessages([
-//            'email' => __('auth.failed'),
-//        ]);
+        // first check here user email and type after attempt
+
+        if(Auth::attempt($data, (bool)$request->input('remember'))){
+            // if($request->user()->type != 'vendor'){
+            //     $this->logout($request);
+            //     throw ValidationException::withMessages([
+            //         'email' => "Auth User Not Vaid...",
+            //     ]);
+            // }
+
+            $user = $request->user();
+            $user->token = $user->createToken('type', ['role:admin'])->plainTextToken;
+            return response()->json($user);
+        }
+
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
     }
 
     public function register(Request $request)
@@ -49,10 +52,14 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return response()->noContent();
+
+
+        return $request->user()->currentAccessToken();
+
+        // Auth::guard('web')->logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        // return response()->noContent();
     }
 
 }

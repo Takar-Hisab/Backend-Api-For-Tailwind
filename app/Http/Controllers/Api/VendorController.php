@@ -33,7 +33,6 @@ class VendorController extends Controller
             ->with(['vendor'])
             ->search(['name', 'email','phone'], $request->input('search'));
 
-
         return UserResource::collection($vendors)->additional(['queries' => $request->query()]);
     }
 
@@ -56,7 +55,6 @@ class VendorController extends Controller
            'register_date' => Carbon::now('UTC'),
            'referal_code' => uniqueString(6)
         ]);
-
         $user->notify(new VendorCreateNotification($user));
 
         return VendorResource::make($vendor->load('user'));

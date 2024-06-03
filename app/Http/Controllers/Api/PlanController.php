@@ -11,26 +11,19 @@ use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    public function index()
     {
-        $request->validate([
-            'perPage'=>'nullable|integer|max:1000'
-        ]);
-
-        $plans = Plan::query()
-            ->search(['name'], $request->input('search'));
-        return PlanResource::collection($plans)->additional(['queries' => $request->query()]);
+        $plans = Plan::paginate(10);
+        return PlanResource::collection($plans);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePlanRequest $request)
+    public function store(StorePlanRequest $request): PlanResource
     {
-        //
+        $plan = Plan::create($request->all());
+        return PlanResource::make($plan);
     }
 
     /**
@@ -41,11 +34,10 @@ class PlanController extends Controller
         //
     }
 
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlanRequest $request, Plan $plan)
+    public function update(Request $request, Plan $plan)
     {
         //
     }

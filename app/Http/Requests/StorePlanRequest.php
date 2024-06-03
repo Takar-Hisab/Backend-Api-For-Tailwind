@@ -11,7 +11,7 @@ class StorePlanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,24 @@ class StorePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'price' => ['required'],
+            'maxProduct' => ['required', 'integer'],
+            'maxInvoice' => ['required', 'integer'],
+            'maxUser' => ['required', 'integer'],
+            'storageLimit' => ['required', 'integer'],
+            'status' => ['boolean'],
+            'description' => ['nullable']
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'max_product' => $this->maxProduct,
+            'max_users' => $this->maxUser,
+            'max_invoice' => $this->maxInvoice,
+            'storage_limit' => $this->storageLimit,
+        ]);
     }
 }

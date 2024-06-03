@@ -18,13 +18,14 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('vendor_id')->index()
+            $table->foreignId('vendor_id')
+                ->nullable()
+                ->index()
                 ->constrained('vendors')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('plan_id')->nullable();//->index()->constrained('plans');
-
+//            $table->foreignId('plan_id')->nullable();//->index()->constrained('plans');
             $table->date('register_date');
             $table->string('referal_code');
             $table->foreignId('created_by')->nullable()->constrained('users');

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-//        Plan::factory(15)->create();
+        Plan::factory(3)->create();
 
 //        User::factory(500)
 //            ->has(Vendor::factory())
@@ -33,13 +33,14 @@ class DatabaseSeeder extends Seeder
 //            ->has(Customer::factory()->has(Plan::factory()->count(1)))
 //            ->create();
 
-//        User::create([
-//            'name' => 'Admin',
-//            'email' => 'admin@admin.com',
-//            'password' => Hash::make(12345678),
-//            'phone' => "01522222242",
-//            'type' => 'admin'
-//        ]);
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make(12345678),
+            'phone' => "01522222242",
+            'type' => 'admin'
+        ]);
+
         User::create([
             'name' => 'Vendor',
             'email' => 'vendor@vendor.com',
@@ -47,12 +48,13 @@ class DatabaseSeeder extends Seeder
             'phone' => "01522222245",
             'type' => 'vendor'
         ]);
+
         User::create([
             'name' => 'Customer',
             'email' => 'customer@customer.com',
             'password' => Hash::make(12345678),
             'phone' => "01522222246",
-            'type' => 'custoemr'
+            'type' => 'customer'
         ]);
 
 //        User::factory()->createMany([
